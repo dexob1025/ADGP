@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"><meta name="theme-color" content="#070b11"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Abu Dhabi GP"><title>Abu Dhabi GP 2026 — V4.4</title>
+<style>
+:root{--b:#070b11;--c:#121b28;--l:#2b3a4e;--t:#f5f7fb;--m:#9ba8b8;--g:#8ee59a;--w:#ffd166;--r:#ff7b87;--blue:#8fc7ff}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--b);scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 90% 0,#1a293c,#070b11 42%);color:var(--t);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",sans-serif;font-size:16px;line-height:1.35;padding:calc(10px + env(safe-area-inset-top)) 12px calc(92px + env(safe-area-inset-bottom));min-height:100vh;min-height:100dvh;overscroll-behavior-y:none}
+.hero,.card{background:rgba(18,27,40,.94);border:1px solid rgba(92,115,145,.42);border-radius:22px;padding:17px;margin-bottom:11px;box-shadow:0 10px 28px rgba(0,0,0,.12)}
+.hero{background:linear-gradient(145deg,#19283b,#0d151f);padding-top:20px}
+h1{margin:4px 0;font-size:clamp(27px,8vw,34px);letter-spacing:-.8px;line-height:1.05}
+h2{font-size:25px;margin:2px 0 14px;letter-spacing:-.4px}
+.muted{color:var(--m)}.source{font-size:11px;color:#748297;margin-top:7px}
+.count{font-size:clamp(29px,8.5vw,36px);font-weight:900;margin-top:15px;letter-spacing:-1px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.big{font-size:21px;font-weight:850}.good{color:var(--g)}.warn{color:var(--w)}
+.nav{position:fixed;z-index:20;bottom:0;left:0;right:0;background:rgba(8,13,21,.94);border-top:1px solid rgba(87,106,132,.42);display:flex;overflow-x:auto;padding:7px 3px calc(8px + env(safe-area-inset-bottom));backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+.nav button{flex:1;min-width:62px;min-height:58px;background:none;border:0;color:#93a0b1;font-size:10px;padding:3px 2px}.nav b{display:block;font-size:21px;line-height:25px;margin-bottom:2px}.nav .on{color:#fff}
+.sec{display:none}.sec.on{display:block}
+input,textarea,select{width:100%;background:#0a111a;color:#fff;border:1px solid #35465d;border-radius:12px;padding:12px;margin-top:6px;outline:none}
+input:focus,textarea:focus,select:focus{border-color:#86b7e8;box-shadow:0 0 0 3px rgba(134,183,232,.12)}
+textarea{min-height:105px;resize:vertical}label{display:block;color:var(--m);font-size:12px;margin:9px 0}.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.item{background:rgba(8,15,24,.72);border:1px solid #27384d;border-radius:15px;padding:11px;margin:8px 0}
+.top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}.pill{font-size:10px;background:#29394e;border-radius:99px;padding:5px 8px;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border:1px solid #42536a;background:#202d3e;color:#fff;border-radius:12px;padding:9px 12px;font-weight:750;text-decoration:none}.primary{background:#edf2f7;color:#101720}.danger{border-color:#71424c;background:#29171c;color:#ffdce0}
+.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.bar{height:9px;background:#273446;border-radius:99px;overflow:hidden}.bar div{height:100%;background:#e6ebef;width:0}.total{font-size:30px;font-weight:900;letter-spacing:-.5px}
+.weather{font-size:29px;font-weight:900;letter-spacing:-.7px}.day{display:grid;grid-template-columns:92px 1fr auto;gap:8px;padding:11px 0;border-bottom:1px solid #263344;align-items:center}.day b{font-size:14px}
+.check{padding:5px 0;border-bottom:1px solid #263140}.check input{width:22px;height:22px;margin:0 8px 0 0;vertical-align:middle;accent-color:#dfe7ef}
+.toast{position:fixed;z-index:40;top:calc(12px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);background:#edf2f7;color:#111820;padding:9px 15px;border-radius:99px;display:none;font-weight:800;box-shadow:0 8px 25px #0007}
+.modalWrap{position:fixed;inset:0;z-index:50;background:rgba(2,6,10,.62);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);display:none;align-items:flex-end}.modalWrap.show{display:flex}
+.modal{width:100%;max-height:92dvh;overflow:auto;background:#101a27;border:1px solid #35465d;border-bottom:0;border-radius:26px 26px 0 0;padding:12px 17px calc(18px + env(safe-area-inset-bottom));box-shadow:0 -20px 60px #0008}
+.grab{width:42px;height:5px;border-radius:99px;background:#536176;margin:2px auto 14px}.modalHead{display:flex;justify-content:space-between;align-items:center;gap:10px}.modalHead h3{font-size:22px;margin:0 0 10px}.close{width:44px;height:44px;border-radius:50%;border:1px solid #405169;background:#1b2838;color:#fff;font-size:22px}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.formActions{display:flex;gap:8px;position:sticky;bottom:0;background:linear-gradient(transparent,#101a27 25%);padding-top:14px;margin-top:5px}.formActions .btn{flex:1}.countdownSmall{font-size:12px;color:var(--blue);font-weight:750}
+@media(max-width:390px){.grid,.row,.formgrid{grid-template-columns:1fr}.hero,.card{border-radius:20px;padding:15px}.day{grid-template-columns:84px 1fr}.nav button{min-width:58px}}
+@media(min-width:600px){body{max-width:700px;margin:auto}.nav{left:50%;right:auto;transform:translateX(-50%);width:min(700px,100%)}}
+</style><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" sizes="180x180" href="icon-180.png"></head><body>
+<header class="hero"><div class="muted">🦝 FULL RACE TRAVEL OS · V4.4</div><h1>🏎️ ABU DHABI GP 2026</h1><div class="muted">01–08 DEC · DUBAI BASE · YAS MARINA</div><div id="count" class="count">—</div><div class="muted">до старта миссии</div><div id="sync" class="source">Personal data: local · Live data: loading…</div></header>
+
+<section id="home" class="sec on"><div class="grid">
+<div class="card"><div class="muted">🎫 West Club</div><div class="big">W07 · D · 29</div><div>AED 3,695</div></div>
+<div class="card"><div class="muted">🏨 Hotels</div><div class="big" id="hotelN">2</div><div>primary + backup</div></div>
+<div class="card"><div class="muted">🌤️ Yas Marina</div><div id="yasT" class="weather">—</div><div id="yasD">loading…</div></div>
+<div class="card"><div class="muted">💱 USD/RUB</div><div id="fxHome" class="big">—</div><div>AED/RUB: <span id="aedHome">—</span></div></div>
+</div><div class="card"><h2>🎯 Mission</h2><div class="bar"><div id="mbar"></div></div><p id="mpct" class="muted">0%</p></div>
+<div class="card"><h2>🚨 Critical dates</h2><div class="item"><b>16 Nov</b> · Bologna backup checkpoint</div><div class="item"><b>30 Nov</b> · AVANI cancellation deadline</div><div class="item"><b>01 Dec</b> · MISSION START</div></div></section>
+
+<section id="data" class="sec"><div class="card"><h2>🧠 My Trip Data</h2><p class="muted">Здесь живут именно твои факты. Нажимаешь <b>Edit</b> — получаешь нормальную форму, без JSON. Всё сохраняется в этом браузере.</p></div>
+<div class="card"><h2>🏨 Hotels</h2><div id="hotels"></div><button class="btn primary" onclick="add('hotels')">＋ Add hotel</button></div>
+<div class="card"><h2>✈️ Flights</h2><div id="flights"></div><button class="btn primary" onclick="add('flights')">＋ Add flight</button></div>
+<div class="card"><h2>🚕 Transfers</h2><div id="transfers"></div><button class="btn primary" onclick="add('transfers')">＋ Add transfer</button></div>
+<div class="card"><h2>🍜 Places</h2><div id="places"></div><button class="btn primary" onclick="add('places')">＋ Add place</button></div>
+</section>
+
+<section id="live" class="sec"><div class="card"><h2>🌤️ Live Weather</h2><div class="grid"><div class="item"><b>Dubai</b><div id="dubT" class="weather">—</div><div id="dubD">—</div><div id="dubExtra" class="source">—</div></div><div class="item"><b>Yas Marina</b><div id="yasT2" class="weather">—</div><div id="yasD2">—</div><div id="yasExtra" class="source">—</div></div></div><button class="btn primary" onclick="weather()">↻ Refresh</button><div class="source">Open-Meteo · current conditions.</div></div>
+<div class="card"><h2>💱 Live FX</h2><div id="fxBox">Loading…</div><button class="btn primary" onclick="fx()">↻ Refresh</button><div class="source">Frankfurter daily reference rates.</div></div>
+<div class="card"><h2>🏎️ F1 2026</h2><div id="f1Box">Loading schedule…</div><button class="btn primary" onclick="f1()">↻ Refresh</button><div class="source">Jolpica F1 API.</div></div></section>
+
+<section id="race" class="sec"><div class="card"><h2>🏎️ Race HQ</h2><div class="grid"><div class="item"><b>🎫 West Club</b><br>W07 · D · 29</div><div class="item"><b>📍 Yas Marina</b><br>Abu Dhabi</div></div><label>Kimi / Pit Wall status<input data-s="kimi"></label><label>Race notes<textarea data-s="raceNotes"></textarea></label></div><div class="card"><h2>🏁 F1 schedule</h2><div id="raceSchedule">Use Live → Refresh.</div></div></section>
+
+<section id="budget" class="sec"><div class="card"><h2>💰 Smart Budget</h2><div class="row"><label>USD→₽<input data-s="usdRub" type="number"></label><label>AED→₽<input data-s="aedRub" type="number"></label></div><div class="total" id="total">—</div><div class="muted">Hotels + flights + transfers + expenses from Trip Data.</div></div>
+<div class="card"><h2>💳 Expenses</h2><div id="expenses"></div><button class="btn primary" onclick="add('expenses')">＋ Add expense</button></div></section>
+
+<section id="pack" class="sec"><div class="card"><h2>🧳 Smart Packing</h2><div class="bar"><div id="pbar"></div></div><p id="ppct" class="muted">0%</p><div id="packing"></div><button class="btn primary" onclick="addPack()">＋ Add item</button></div></section>
+
+<section id="more" class="sec"><div class="card"><h2>📝 Notes</h2><textarea data-s="notes" style="min-height:220px" placeholder="Идеи, брони, рестораны…"></textarea><div class="actions"><button class="btn primary" onclick="save()">💾 Save</button><button class="btn danger" onclick="resetAll()">↺ Reset</button></div></div>
+<div class="card"><h2>🗺️ Map</h2><div id="maps"></div><p class="source">Links open Apple Maps / Google Maps. No map API key required.</p></div></section>
+
+<div id="editor" class="modalWrap" onclick="if(event.target===this)closeEditor()"><div class="modal"><div class="grab"></div><div class="modalHead"><h3 id="editorTitle">Edit</h3><button class="close" onclick="closeEditor()">×</button></div><form id="editorForm" onsubmit="submitEditor(event)"><div id="editorFields"></div><div class="formActions"><button type="button" class="btn" onclick="closeEditor()">Cancel</button><button type="submit" class="btn primary">Save changes</button></div></form></div></div><nav class="nav"><button class="on" data-go="home"><b>🏠</b>Home</button><button data-go="data"><b>🧠</b>Data</button><button data-go="live"><b>🌐</b>Live</button><button data-go="race"><b>🏎️</b>Race</button><button data-go="budget"><b>💰</b>Budget</button><button data-go="pack"><b>🧳</b>Pack</button><button data-go="more"><b>•••</b>More</button></nav><div id="toast" class="toast">Saved ✓</div>
+
+<script>
+const K="adgp44";const base={settings:{usdRub:80,aedRub:22,kimi:"Championship watch — update after each session.",raceNotes:"",notes:""},hotels:[{id:1,name:"AVANI Ibn Battuta Dubai Hotel",city:"Dubai",dates:"01–08 Dec 2026",cost:590.62,currency:"USD",status:"BOOKED",notes:"Superior Room · breakfast · free cancellation until 30 Nov"},{id:2,name:"Orchidea Stazione",city:"Bologna",dates:"01–07 Dec 2026",cost:697,currency:"USD",status:"BACKUP",notes:"Backup if finale moves to Imola · checkpoint 16 Nov"}],flights:[{id:1,airline:"Turkish Airlines",route:"Moscow → Abu Dhabi",cost:46500,currency:"RUB",baggage:"30 kg",status:"PLANNED"}],transfers:[],places:[],expenses:[],packing:["Паспорт","Билеты / брони","Страховка","Dubai ↔ Yas transport","Зарядки / power bank","F1 outfit","Удобная обувь","SPF / косметичка","Лёгкая одежда","Слой для кондиционеров"].map((name,i)=>({id:i+1,name,done:false}))};let st=JSON.parse(localStorage.getItem(K)||"null")||structuredClone(base);
+const $=id=>document.getElementById(id), esc=x=>String(x??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m])), uid=()=>Date.now()+Math.random();
+function persist(){localStorage.setItem(K,JSON.stringify(st))}
+function toast(){let x=$("toast");x.style.display="block";setTimeout(()=>x.style.display="none",900)}
+function save(){persist();toast();render()}
+function resetAll(){if(confirm("Сбросить локальные данные?")){localStorage.removeItem(K);location.reload()}}
+document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{document.querySelectorAll(".sec").forEach(s=>s.classList.remove("on"));$(b.dataset.go).classList.add("on");document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("on"));b.classList.add("on");scrollTo(0,0)});
+let editorState={type:null,id:null};
+const fields={
+ hotels:[["name","Hotel name","text"],["city","City","text"],["checkin","Check-in","date"],["checkout","Check-out","date"],["cost","Price","number"],["currency","Currency","select:USD|AED|RUB|EUR"],["status","Status","select:BOOKED|BACKUP|PLANNED|TODO|CANCELLED"],["notes","Notes","textarea"]],
+ flights:[["airline","Airline","text"],["route","Route","text"],["date","Date","date"],["time","Departure time","time"],["cost","Price","number"],["currency","Currency","select:USD|AED|RUB|EUR"],["baggage","Baggage","text"],["status","Status","select:BOOKED|PLANNED|TODO|CANCELLED"]],
+ transfers:[["route","Route","text"],["date","Date","date"],["time","Time","time"],["cost","Price","number"],["currency","Currency","select:USD|AED|RUB|EUR"],["status","Status","select:BOOKED|PLANNED|TODO"],["notes","Notes","textarea"]],
+ places:[["name","Place name","text"],["address","Address","text"],["type","Type","select:restaurant|cafe|sightseeing|shopping|other"],["notes","Notes","textarea"]],
+ expenses:[["name","Expense","text"],["amount","Amount","number"],["currency","Currency","select:USD|AED|RUB|EUR"],["status","Status","select:PAID|PLANNED"],["notes","Notes","textarea"]]
+};
+function openEditor(type,id=null){
+ editorState={type,id};let x=id?st[type].find(a=>a.id===id):{};
+ $("editorTitle").textContent=(id?"Edit ":"Add ")+type.slice(0,-1);
+ $("editorFields").innerHTML=fields[type].map(f=>{let [key,label,typeDef]=f,val=x[key]??"";
+   if(typeDef.startsWith("select:")){let opts=typeDef.slice(7).split("|");return `<label>${label}<select name="${key}">${opts.map(o=>`<option ${String(val)===o?"selected":""}>${o}</option>`).join("")}</select></label>`}
+   if(typeDef==="textarea")return `<label>${label}<textarea name="${key}">${esc(val)}</textarea></label>`;
+   return `<label>${label}<input name="${key}" type="${typeDef}" value="${esc(val)}" ${typeDef==="number"?'step="0.01"':''}></label>`;
+ }).join("");
+ $("editor").classList.add("show");setTimeout(()=>$("editorFields").querySelector("input,textarea,select")?.focus(),50);
+}
+function closeEditor(){$("editor").classList.remove("show");editorState={type:null,id:null}}
+function submitEditor(e){
+ e.preventDefault();let {type,id}=editorState,fd=new FormData(e.target),x=id?{...st[type].find(a=>a.id===id)}:{id:uid()};
+ for(let [k,v] of fd.entries())x[k]=(k==="cost"||k==="amount")?(+v||0):v;
+ if(type==="hotels")x.dates=[x.checkin,x.checkout].filter(Boolean).join(" → ");
+ st[type]=id?st[type].map(a=>a.id===id?x:a):[...st[type],x];closeEditor();save();
+}
+function edit(type,id){openEditor(type,id)}
+function del(type,id){if(confirm("Delete this item?")){st[type]=st[type].filter(a=>a.id!==id);save()}}
+function add(type){openEditor(type)}
+function addPack(){let n=prompt("Packing item:");if(n){st.packing.push({id:uid(),name:n,done:false});save()}}
+function list(type,el,fn){$(el).innerHTML=st[type].length?st[type].map(x=>`<div class="item"><div class="top"><div><b>${fn(x)}</b>${x.date?`<div class="muted">${esc(x.date)}${x.time?" · "+esc(x.time):""}</div>`:""}</div><span class="pill">${esc(x.status||x.type||"")}</span></div><div class="muted">${esc(x.city||x.route||x.address||x.dates||"")} ${x.cost!=null?"· "+esc(x.cost)+" "+esc(x.currency||""):x.amount!=null?"· "+esc(x.amount)+" "+esc(x.currency||""):""}</div><div>${esc(x.notes||"")}</div><div class="actions"><button class="btn" onclick="edit('${type}',${x.id})">✏️ Edit</button><button class="btn danger" onclick="del('${type}',${x.id})">🗑 Delete</button></div></div>`).join(""):`<div class="muted">No records yet.</div>`}
+function render(){
+ list("hotels","hotels",x=>x.name);list("flights","flights",x=>x.airline);list("transfers","transfers",x=>x.route);list("places","places",x=>x.name);list("expenses","expenses",x=>x.name);$("hotelN").textContent=st.hotels.length;
+ $("packing").innerHTML=st.packing.map(x=>`<div class="check"><label><input type="checkbox" ${x.done?"checked":""} onchange="pack(${x.id},this.checked)">${esc(x.name)}</label></div>`).join("");
+ let p=st.packing.length?100*st.packing.filter(x=>x.done).length/st.packing.length:0;$("pbar").style.width=p+"%";$("ppct").textContent=Math.round(p)+"%";$("mbar").style.width=p+"%";$("mpct").textContent=Math.round(p)+"% complete";
+ document.querySelectorAll("[data-s]").forEach(e=>{e.value=st.settings[e.dataset.s]??"";e.oninput=()=>{st.settings[e.dataset.s]=e.value;persist();budget()}});
+ budget();maps()
+}
+function pack(id,v){let x=st.packing.find(a=>a.id===id);if(x)x.done=v;save()}
+function budget(){let u=+st.settings.usdRub||0,a=+st.settings.aedRub||0,t=0;const cv=(v,c)=>v*(c==="USD"?u:c==="AED"?a:1);["hotels","flights","transfers","expenses"].forEach(k=>st[k].forEach(x=>t+=cv(+(x.cost??x.amount)||0,x.currency)));$("total").textContent=t.toLocaleString("ru-RU",{maximumFractionDigits:0})+" ₽"}
+function maps(){let a=[...st.hotels.map(x=>[x.name,x.city+" "+x.name]),["Yas Marina Circuit","Yas Marina Circuit Abu Dhabi"],...st.places.map(x=>[x.name,x.address||x.name])];$("maps").innerHTML=a.map(x=>`<div class="item"><b>${esc(x[0])}</b><div class="actions"><a class="btn" href="https://maps.apple.com/?q=${encodeURIComponent(x[1])}"> Apple Maps</a><a class="btn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(x[1])}">Google Maps</a></div></div>`).join("")}
+async function weather(){
+ const loc=[["Dubai",25.2048,55.2708,"dubT","dubD","dubExtra"],["Yas Marina",24.4672,54.6031,"yasT2","yasD2","yasExtra"]];
+ for(let [n,la,lo,t,d,e] of loc)try{
+   let url=`https://api.open-meteo.com/v1/forecast?latitude=${la}&longitude=${lo}&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m,wind_direction_10m,uv_index&timezone=auto`;
+   let j=await fetch(url).then(r=>r.json()),c=j.current,txt=wt(c.weather_code),wind=windDir(c.wind_direction_10m);
+   $(t).textContent=Math.round(c.temperature_2m)+"°C";$(d).textContent=txt+" · feels "+Math.round(c.apparent_temperature)+"°C";
+   $(e).textContent=`💨 ${Math.round(c.wind_speed_10m)} km/h ${wind} · 💧 ${Math.round(c.relative_humidity_2m)}% · ☀️ UV ${Math.round(c.uv_index??0)}`;
+   if(n==="Yas"){$("yasT").textContent=Math.round(c.temperature_2m)+"°C";$("yasD").textContent=txt}
+ }catch(e){}
+ $("sync").textContent="Weather updated · "+new Date().toLocaleTimeString("ru-RU",{hour:"2-digit",minute:"2-digit"})
+}
+function windDir(d){if(d==null)return"";let dirs=["N","NE","E","SE","S","SW","W","NW"];return dirs[Math.round(d/45)%8]}
+function wt(c){return c===0?"Clear":c<=3?"Partly cloudy":c<=48?"Cloudy / fog":c<=67?"Rain":c<=82?"Showers":c<=86?"Snow showers":"Thunderstorm"}
+async function fx(){try{let j=await fetch("https://api.frankfurter.dev/v2/rates?base=EUR&quotes=USD,RUB,AED").then(r=>r.json()),q=Object.fromEntries(j.map(x=>[x.quote,x.rate])),u=q.RUB/q.USD,a=q.RUB/q.AED;st.settings.usdRub=+u.toFixed(2);st.settings.aedRub=+a.toFixed(2);persist();$("fxHome").textContent=u.toFixed(2);$("aedHome").textContent=a.toFixed(2);$("fxBox").innerHTML=`<div class="grid"><div class="item"><b>USD/RUB</b><div class="big">${u.toFixed(2)}</div></div><div class="item"><b>AED/RUB</b><div class="big">${a.toFixed(2)}</div></div></div><div class="source">Reference date: ${esc(j[0]?.date||"—")}</div>`;budget();render()}catch(e){$("fxBox").textContent="FX unavailable"}}
+function localDubai(date,time){let iso=`${date}T${time||"00:00:00"}Z`;return new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Dubai",day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit",hour12:false}).format(new Date(iso))}
+function eventCountdown(date,time){let target=new Date(`${date}T${time||"00:00:00"}Z`),ms=target-new Date();if(ms<=0)return "Started / completed";let d=Math.floor(ms/864e5),h=Math.floor(ms/36e5)%24,m=Math.floor(ms/6e4)%60;return `in ${d}d ${String(h).padStart(2,"0")}h ${String(m).padStart(2,"0")}m`}
+async function f1(){
+ try{
+  let j=await fetch("https://api.jolpi.ca/ergast/f1/2026/races.json?limit=100").then(r=>r.json()),rs=j.MRData?.RaceTable?.Races||[],r=rs.find(x=>(x.raceName||"").toLowerCase().includes("abu dhabi")||(x.Circuit?.circuitName||"").toLowerCase().includes("yas marina"));
+  if(!r){$("f1Box").textContent="Abu Dhabi not found";return}
+  let e=[["FP1",r.FirstPractice],["FP2",r.SecondPractice],["FP3",r.ThirdPractice],["Qualifying",r.Qualifying],["Race",{date:r.date,time:r.time}]].filter(x=>x[1]?.date);
+  let h=e.map(x=>`<div class="day"><b>${x[0]}</b><span><b>${localDubai(x[1].date,x[1].time)}</b><br><span class="countdownSmall">${eventCountdown(x[1].date,x[1].time)}</span></span><span class="pill">GST</span></div>`).join("");
+  $("f1Box").innerHTML=h;$("raceSchedule").innerHTML=h
+ }catch(e){$("f1Box").textContent="F1 feed unavailable"}
+}
+function tick(){let ms=new Date("2026-12-01T00:00:00+04:00")-new Date();if(ms<=0){$("count").textContent="🚀 MISSION ACTIVE";return}let d=Math.floor(ms/864e5),h=Math.floor(ms/36e5)%24,m=Math.floor(ms/6e4)%60,s=Math.floor(ms/1e3)%60;$("count").textContent=`T−${d}d ${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`}
+render();tick();setInterval(tick,1000);weather();fx();f1();
+</script></body></html>
